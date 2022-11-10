@@ -9,6 +9,12 @@ import Grid from '@mui/material/Grid'
 import Chip from '@mui/material/Chip'
 import TextField from '@mui/material/TextField'
 
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+
 import Link from 'next/link'
 
 import { db } from './firebase'
@@ -23,10 +29,24 @@ export default function AdminLink(props) {
     const [ updating, setUpdating ] = React.useState(false)
     const [ editURL, setEditURL ] = React.useState(linkData.url)
 
+    const [ deleteDialog, setDeleteDialog ] = React.useState(false)
+
     const linkDocument = doc(db, 'links/' + linkData.linkID)
 
     const handleDelete = () => {
-        deleteDoc(linkDocument)
+        setUpdating(true)
+        deleteDoc(linkDocument).then(() => {
+            setDeleteDialog(false)
+            setUpdating(false)
+        })
+    }
+
+    const handleOpenDeleteDialog = () => {
+        setDeleteDialog(true)
+    }
+
+    const handleCloseDeleteDialog = () => {
+        setDeleteDialog(false)
     }
 
     const toggleHidden = () => {
@@ -55,8 +75,21 @@ export default function AdminLink(props) {
         })
     }
 
+    const displayDeleteDialog =
+        <Dialog maxWidth='lg' fullWidth open={deleteDialog} onClose={handleCloseDeleteDialog}>
+            <DialogTitle>Delete this link?</DialogTitle>
+            <DialogContent>
+                <DialogContentText>This action cannot be undone.</DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button disabled={updating} onClick={handleCloseDeleteDialog}>Cancel</Button>
+                <Button variant='contained' color='error' disabled={updating} onClick={handleDelete}>Delete</Button>
+            </DialogActions>
+        </Dialog>
+
     const displayNormal = 
         <Grid container direction='row' spacing={2} sx={{alignItems: 'center', p: '1em'}}>
+            {displayDeleteDialog}
             <Grid item xs={12} sm={3} md={2} sx={{textAlign: 'center'}}>
                 <Chip color='primary' label={
                 <Typography variant='h6'><Link href={'../' + linkData.linkID}>{linkData.linkID}</Link></Typography>
@@ -84,17 +117,17 @@ export default function AdminLink(props) {
             <Grid item xs={12} sm={6} md={1}>
                 <Button fullWidth variant='outlined' onClick={handleEditMode}>Edit</Button>
             </Grid>
-            <Grid item xs={12} sm={6} md={1}>
-                <Button fullWidth variant='outlined' color='error' onClick={handleDelete}>Delete</Button>
+            <Grid item xs={12} sm={12} md={1}>
+                <Button fullWidth variant='outlined' color='error' onClick={handleOpenDeleteDialog}>Delete</Button>
             </Grid>
         </Grid>
 
     const displayEdit =
         <Grid container direction='row' spacing={2} sx={{alignItems: 'center', p: '1em'}}>
-            <Grid item sm={12} md={10}>
+            <Grid item xs={12} sm={12} md={10}>
                 <Stack direction='column' spacing={1}>
-                    <TextField size='small' label='Short Code' disabled value={linkData.linkID} />
-                    <TextField size='small' label='URL' disabled={updating} value={editURL} onChange={(e) => {setEditURL(e.target.value)}} />
+                    <TextField fullWidth size='small' label='Short Code' disabled value={linkData.linkID} />
+                    <TextField fullWidth size='small' label='URL' disabled={updating} value={editURL} onChange={(e) => {setEditURL(e.target.value)}} />
                 </Stack>
             </Grid>
             <Grid item xs={12} sm={6} md={1}>
