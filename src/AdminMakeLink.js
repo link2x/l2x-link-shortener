@@ -17,7 +17,8 @@ export default function AdminMakeLink(props) {
             const linkDocument = doc(db, 'links/' + shortcode)
             let newLinkData = {
                 url: URL,
-                createTimestamp: Timestamp.now()
+                createTimestamp: Timestamp.now(),
+                updateTimestamp: Timestamp.now()
             }
             setDoc(linkDocument, newLinkData).then(() => {
                 setShortcode('')
