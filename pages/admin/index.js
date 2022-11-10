@@ -69,10 +69,10 @@ export default function Admin() {
                 <Typography variant='h5' sx={{py: '1em'}}>Admin Panel</Typography>
                 <Grid container direction='row' spacing={2} sx={{alignItems: 'center'}}>
                     <Grid item xs={12} sm={12} md={5}>
-                        <TextField fullWidth label='Login' fullWidth id='user' type='text' value={username} onChange={(e) => {setUsername(e.target.value)}} />
+                        <TextField fullWidth label='Login' id='user' type='text' value={username} onChange={(e) => {setUsername(e.target.value)}} />
                     </Grid>
                     <Grid item xs={12} sm={12} md={5}>
-                        <TextField fullWidth label='Password' fullWidth id='pass' type='password' value={password} onChange={(e) => {setPassword(e.target.value)}} />
+                        <TextField fullWidth label='Password' id='pass' type='password' value={password} onChange={(e) => {setPassword(e.target.value)}} />
                     </Grid>
                     <Grid item xs={12} sm={12} md={2}>
                         <Button fullWidth variant='contained' size='large' onClick={attemptLogin}>Login</Button>

@@ -32,7 +32,7 @@ export default function AdminMakeLink(props) {
                 <TextField fullWidth value={shortcode} onChange={(e) => setShortcode(e.target.value)} label='Short Code' />
             </Grid>
             <Grid item xs={12} sm={6} md={8}>
-                <TextField fullWidth value={URL} onChange={(e) => setURL(e.target.value)}fullWidth label='URL' />
+                <TextField fullWidth value={URL} onChange={(e) => setURL(e.target.value)} label='URL' />
             </Grid>
             <Grid item xs={12} sm={3} md={2}>
                 <Button fullWidth onClick={makeLink}>New Link</Button>
