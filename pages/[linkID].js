@@ -11,7 +11,11 @@ export default function LinkShorten() {
     const getLink = () => {
         const userDocument = doc(db, 'links/', linkID)
         getDoc(userDocument).then((doc) => {
-            router.push(doc.data().url)
+            if (doc.exists()) {
+                router.push(doc.data().url)
+            } else {
+                router.push('/')
+            }
         })
     }
 
