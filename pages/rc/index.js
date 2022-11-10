@@ -1,3 +1,3 @@
-import Sorry from "./[slug]";
+import Sorry from "./[rcCode]";
 
 export default Sorry

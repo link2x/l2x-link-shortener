@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
+import Chip from '@mui/material/Chip'
 
 import Link from 'next/link'
 
@@ -28,15 +29,21 @@ export default function AdminLink(props) {
     }
 
     if (showHidden || (!linkData?.hidden)) return(
-        <Card>
+        <Card elevation={2}>
             <Grid container direction='row' spacing={2} sx={{alignItems: 'center', p: '1em'}}>
                 <Grid item xs={12} sm={3} md={2} sx={{textAlign: 'center'}}>
-                    <Typography variant='h6' color='blue' sx={{textDecoration: 'underline'}}><Link href={'../' + linkData.linkID}>{linkData.linkID}</Link></Typography>
+                    <Chip color='primary' label={
+                    <Typography variant='h6'><Link href={'../' + linkData.linkID}>{linkData.linkID}</Link></Typography>
+                } />
                 </Grid>
                 <Grid item xs={12} sm={9} md={8}>
                     <Stack direction='column' spacing={1} sx={{alignItems: 'center'}}>
-                        <Typography variant='body2' color='blue' textAlign={'center'} sx={{textDecoration: 'underline'}}><Link href={linkData.url}>{linkData.url}</Link></Typography>
+                        <Chip size='small' variant='outlined' label={
+                            <Typography textAlign={'center'} ><Link href={linkData.url}>{linkData.url}</Link></Typography>
+                        } />
+                        <Chip size='small' label={
                         <Typography variant='caption'>{linkData.createTimestamp.toDate().toLocaleString()}</Typography>
+                    } />
                     </Stack>
                 </Grid>
                 <Grid item xs={12} sm={6} md={1}>
