@@ -104,7 +104,7 @@ export default function Admin() {
                 <Box sx={{flexGrow: 1}} />
                 <Button variant='contained' onClick={() => signOut(auth)}>Sign Out</Button>
             </Stack>
-            <AdminMakeLink />
+            <AdminMakeLink linkData={linkData} />
             <Paper elevation={1} sx={{my: '1em', p: '1em'}}>
                 <Grid container spacing={2} sx={{mb: '1em', px: '1em', alignContent: 'center', alignItems: 'center'}}>
                     <Grid item xs={12} md={8}>
