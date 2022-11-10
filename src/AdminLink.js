@@ -8,18 +8,26 @@ import Grid from '@mui/material/Grid'
 import Link from 'next/link'
 
 import { db } from './firebase'
-import { doc, deleteDoc, Timestamp } from 'firebase/firestore'
+import { doc, deleteDoc, setDoc, Timestamp } from 'firebase/firestore'
 
 export default function AdminLink(props) {
 
     const linkData = props.linkData
+    const showHidden = props.showHidden
+
+    const linkDocument = doc(db, 'links/' + linkData.linkID)
 
     const handleDelete = () => {
-        const linkDocument = doc(db, 'links/' + linkData.linkID)
         deleteDoc(linkDocument)
     }
 
-    return(
+    const toggleHidden = () => {
+        setDoc(linkDocument, {
+            hidden: !linkData?.hidden
+        }, { merge: true })
+    }
+
+    if (showHidden || (!linkData?.hidden)) return(
         <Card>
             <Grid container direction='row' spacing={2} sx={{alignItems: 'center', p: '1em'}}>
                 <Grid item xs={12} sm={3} md={2} sx={{textAlign: 'center'}}>
@@ -32,7 +40,7 @@ export default function AdminLink(props) {
                     </Stack>
                 </Grid>
                 <Grid item xs={12} sm={6} md={1}>
-                    <Button fullWidth>Hide</Button>
+                    <Button fullWidth onClick={toggleHidden}>{linkData?.hidden ? 'Unhide' : 'Hide'}</Button>
                 </Grid>
                 <Grid item xs={12} sm={6} md={1}>
                     <Button fullWidth variant='outlined' color='error' onClick={handleDelete}>Delete</Button>

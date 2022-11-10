@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { auth, db } from '../../src/firebase'
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { collection, doc, getDoc, getDocs, setDoc, orderBy, query, onSnapshot } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, setDoc, orderBy, query, onSnapshot, where } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 import Container from '@mui/material/Container';
@@ -13,6 +13,9 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+
+import RefreshIcon from '@mui/icons-material/Refresh'
 
 import AdminLink from '../../src/AdminLink';
 import AdminMakeLink from '../../src/AdminMakeLink';
@@ -26,6 +29,18 @@ export default function Admin() {
 
     const [ userData, setUserData ] = React.useState();
     const [ linkData, setLinkData ] = React.useState([]);
+
+    const [ forceUpdate, setForceUpdate ] = React.useState(0);
+
+    const [ showHidden, setShowHidden ] = React.useState(false);
+
+    const triggerRefresh = () => {
+        setForceUpdate(forceUpdate + 1)
+    }
+
+    const toggleShowHidden = () => {
+        setShowHidden(!showHidden)
+    }
 
     const attemptLogin = (e) => {
         e.preventDefault();
@@ -55,7 +70,8 @@ export default function Admin() {
 
         return () => unsubGetLinks()
         }
-    }, [ user ] )
+    }, [ user, forceUpdate ] )
+
     React.useMemo(() => {
         if (user) {
             getUser()
@@ -82,18 +98,32 @@ export default function Admin() {
         </Container>
     )
     else if (user && userData?.admin) return (
-        <Container sx={{mt: '1em'}}>
+        <Container maxWidth='xl' sx={{mt: '1em'}}>
             <Stack direction='row' spacing={2} sx={{pb: '1em', alignItems: 'center'}}>
-                <Typography>{user.email}</Typography>
+                <Typography>L2X.US Link Shortener - {user.email}</Typography>
                 <Box sx={{flexGrow: 1}} />
-                <Typography>{userData?.admin? 'Admin' : '!NOT ADMIN!'}</Typography>
                 <Button variant='contained' onClick={() => signOut(auth)}>Sign Out</Button>
             </Stack>
             <AdminMakeLink />
-            <Paper sx={{my: '1em' ,p: '1em'}}>
+            <Paper sx={{my: '1em', p: '1em'}}>
+                <Grid container spacing={2} sx={{mb: '1em', px: '1em', alignContent: 'center', alignItems: 'center'}}>
+                    <Grid item xs={12} md={8}>
+                        <Typography variant='body1'>{linkData.length} Links</Typography>
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                        <Button fullWidth variant='contained' onClick={toggleShowHidden}>{showHidden ? 'Hide Hidden Links' : 'Show All Links'}</Button>
+                    </Grid>
+                    <Grid item xs={12} md={1}>
+                        <Stack direction='row' sx={{justifyContent: 'center'}}>
+                            <IconButton onClick={triggerRefresh}>
+                                <RefreshIcon />
+                            </IconButton>
+                        </Stack>
+                    </Grid>
+                </Grid>
                 <Stack direction='column' spacing={2}>
                     {linkData.map((link, index) => 
-                        <AdminLink linkData={link} index={index} key={index} />
+                        <AdminLink linkData={link} index={index} key={index} showHidden={showHidden} />
                     )}
                 </Stack>
             </Paper>

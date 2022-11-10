@@ -29,13 +29,13 @@ export default function AdminMakeLink(props) {
     return(
         <Grid container spacing={2} sx={{alignItems: 'center'}}>
             <Grid item xs={12} sm={3} md={2}>
-                <TextField fullWidth value={shortcode} onChange={(e) => setShortcode(e.target.value)} label='Short Code' />
+                <TextField fullWidth size='small' value={shortcode} onChange={(e) => setShortcode(e.target.value)} label='Short Code' />
             </Grid>
             <Grid item xs={12} sm={6} md={8}>
-                <TextField fullWidth value={URL} onChange={(e) => setURL(e.target.value)} label='URL' />
+                <TextField fullWidth size='small' value={URL} onChange={(e) => setURL(e.target.value)} label='URL' />
             </Grid>
             <Grid item xs={12} sm={3} md={2}>
-                <Button fullWidth onClick={makeLink}>New Link</Button>
+                <Button fullWidth size='large' variant='outlined' onClick={makeLink}>New Link</Button>
             </Grid>
         </Grid>
     )
