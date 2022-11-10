@@ -20,21 +20,21 @@ export default function AdminLink(props) {
     }
 
     return(
-        <Card sx={{p: '0.5em'}}>
-            <Grid container direction='row' sx={{alignItems: 'center'}}>
-                <Grid item sm={3} md={2} sx={{textAlign: 'center'}}>
+        <Card>
+            <Grid container direction='row' spacing={2} sx={{alignItems: 'center', p: '1em'}}>
+                <Grid item xs={12} sm={3} md={2} sx={{textAlign: 'center'}}>
                     <Typography variant='h6' color='blue' sx={{textDecoration: 'underline'}}><Link href={'../' + linkData.linkID}>{linkData.linkID}</Link></Typography>
                 </Grid>
-                <Grid item sm={9} md={8}>
+                <Grid item xs={12} sm={9} md={8}>
                     <Stack direction='column' spacing={1} sx={{alignItems: 'center'}}>
-                        <Typography variant='body2' color='blue' sx={{textDecoration: 'underline'}}><Link href={linkData.url}>{linkData.url}</Link></Typography>
+                        <Typography variant='body2' color='blue' textAlign={'center'} sx={{textDecoration: 'underline'}}><Link href={linkData.url}>{linkData.url}</Link></Typography>
                         <Typography variant='caption'>{linkData.createTimestamp.toDate().toLocaleString()}</Typography>
                     </Stack>
                 </Grid>
-                <Grid item md={1}>
-
+                <Grid item xs={12} sm={6} md={1}>
+                    <Button fullWidth>Hide</Button>
                 </Grid>
-                <Grid item xs={12} sm={2} md={1}>
+                <Grid item xs={12} sm={6} md={1}>
                     <Button fullWidth variant='outlined' color='error' onClick={handleDelete}>Delete</Button>
                 </Grid>
             </Grid>

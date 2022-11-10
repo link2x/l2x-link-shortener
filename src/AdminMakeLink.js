@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import Stack from '@mui/material/Stack'
+import Grid from '@mui/material/Grid'
 
 import { db } from './firebase'
 import { doc, setDoc, Timestamp } from 'firebase/firestore'
@@ -27,10 +27,16 @@ export default function AdminMakeLink(props) {
     }
 
     return(
-        <Stack direction='row' spacing={2} sx={{alignItems: 'center'}}>
-            <TextField value={shortcode} onChange={(e) => setShortcode(e.target.value)} label='Short Code' />
-            <TextField value={URL} onChange={(e) => setURL(e.target.value)}fullWidth label='URL' />
-            <Button onClick={makeLink}>New Link</Button>
-        </Stack>
+        <Grid container spacing={2} sx={{alignItems: 'center'}}>
+            <Grid item xs={12} sm={3} md={2}>
+                <TextField fullWidth value={shortcode} onChange={(e) => setShortcode(e.target.value)} label='Short Code' />
+            </Grid>
+            <Grid item xs={12} sm={6} md={8}>
+                <TextField fullWidth value={URL} onChange={(e) => setURL(e.target.value)}fullWidth label='URL' />
+            </Grid>
+            <Grid item xs={12} sm={3} md={2}>
+                <Button fullWidth onClick={makeLink}>New Link</Button>
+            </Grid>
+        </Grid>
     )
 }

@@ -9,6 +9,7 @@ import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
+import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
@@ -63,14 +64,20 @@ export default function Admin() {
 
     if (loading) return (<div>Loading...</div>)
     else if (!user) return(
-        <Container sx={{p: '1em'}}>
-            <Stack direction='column' spacing={2} sx={{alignItems: 'center'}}>
-                <Typography>Admin Panel</Typography>
-                <Stack direction='row' spacing={2} sx={{justifyContent: 'space-evenly'}}>
-                    <TextField label='Login' fullWidth id='user' type='text' value={username} onChange={(e) => {setUsername(e.target.value)}} />
-                    <TextField label='Password' fullWidth id='pass' type='password' value={password} onChange={(e) => {setPassword(e.target.value)}} />
-                    <Button variant='contained' onClick={attemptLogin}>Login</Button>
-                </Stack>
+        <Container>
+            <Stack direction='column' sx={{alignItems: 'center'}}>
+                <Typography variant='h5' sx={{py: '1em'}}>Admin Panel</Typography>
+                <Grid container direction='row' spacing={2} sx={{alignItems: 'center'}}>
+                    <Grid item xs={12} sm={12} md={5}>
+                        <TextField fullWidth label='Login' fullWidth id='user' type='text' value={username} onChange={(e) => {setUsername(e.target.value)}} />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={5}>
+                        <TextField fullWidth label='Password' fullWidth id='pass' type='password' value={password} onChange={(e) => {setPassword(e.target.value)}} />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={2}>
+                        <Button fullWidth variant='contained' size='large' onClick={attemptLogin}>Login</Button>
+                    </Grid>
+                </Grid>
             </Stack>
         </Container>
     )
