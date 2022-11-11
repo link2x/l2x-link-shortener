@@ -134,7 +134,7 @@ export default function AdminLink(props) {
                 <Button fullWidth variant='outlined' color='error' disabled={updating} onClick={handleCancelEditMode}>Cancel</Button>
             </Grid>
             <Grid item xs={12} sm={6} md={1}>
-                <Button fullWidth variant='outlined' color='secondary' disabled={updating} onClick={handleEditUpdate}>Submit</Button>
+                <Button fullWidth variant='contained' color='primary' disabled={updating} onClick={handleEditUpdate}>Submit</Button>
             </Grid>
         </Grid>
 

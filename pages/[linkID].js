@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useRouter } from "next/router"
-import { db } from '../src/firebase';
+import { db, analytics } from '../src/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
 export default function LinkShorten() {
