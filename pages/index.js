@@ -23,15 +23,15 @@ export default function Home() {
     const router = useRouter()
 
     return(
-        <Container component={Paper} sx={{p: '2em'}} maxWidth='xl'>
+        <Container component={Paper} square sx={{p: '2em'}} maxWidth='xl'>
             <Grid container spacing={8} sx={{flexGrow: 1}} justifyContent={'center'}>
                 <Grid item xs={12} md={12} lg={12}>
-                    <Paper elevation={4}
+                    <Paper elevation={1} square
                         sx={{
                             px: '2em',
                             pt: '7em',
                             pb: '1em',
-                            background: 'linear-gradient(129deg, rgba(29,63,84,1) 0%, rgba(3,26,38,1) 100%)'
+                            background: 'linear-gradient(129deg, rgba(29,63,84,0.8) 0%, rgba(3,26,38,0.8) 100%)'
                         }}>
                         <Typography
                             align='right'
