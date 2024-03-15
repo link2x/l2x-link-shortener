@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 function ToolButton(props) {
     return(
         <Tooltip title={props.description}>
-            <Button size='large' variant='outlined' color='primary' fullWidth onClick={() => {router.push(props.link)}}>{props.title}</Button>
+            <Button size='large' variant='outlined' color='primary' fullWidth onClick={() => {props.router.push(props.link)}}>{props.title}</Button>
         </Tooltip>
     )
 }
@@ -54,7 +54,8 @@ export default function Home() {
                         <ToolButton
                             title='IC Safe Foods'
                             description='A tracker for triggering foods and ingredients.'
-                            link='https://ic.l2x.us/' />
+                            link='https://ic.l2x.us/'
+                            router={router} />
                     </Stack>
                 </Grid>
             </Grid>
